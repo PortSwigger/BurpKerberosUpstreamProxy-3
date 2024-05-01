@@ -1,0 +1,13 @@
+Uuid: 87261acdb3e74128a3b4e1241ac2b7d3
+ExtensionType: 1
+Name: Kerberos Upstream Proxy
+RepoName: kerberos-upstream-proxy
+ScreenVersion: TODO
+SerialVersion: 0
+MinPlatformVersion: 0
+ProOnly: False
+Author: TODO
+ShortDescription: TODO
+EntryPoint: build/libs/kerberos-upstream-proxy-all.jar
+BuildCommand: gradle jar
+SupportedProducts: Pro, Community
