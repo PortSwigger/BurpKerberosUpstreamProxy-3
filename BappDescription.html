@@ -1,1 +1,46 @@
-TODO
+<p>An extension to allow the use of Burp Suite with an upstream proxy that requires Kerberos authentication.</p>
+
+<p>How it works</p>
+
+<ol>
+	<li>Using the settings you provide, this extension obtains a Kerberos TGT token and starts a proxy running locally.</li>
+	<li>When requests go into this proxy a header is added ("Proxy-Authorization: Negotiate ") to the request.</li>
+	<li>The local proxy forwards the request (with the authorization header) to your real upstream proxy.</li>
+</ol>
+
+<p>Usage</p>
+
+<ol>
+	<li>Configure standard Burp listener (default is 127.0.0.1:8080); it can be whatever you want, just as long as the port doesn't conflict with what we set in the extension later.</li>
+	<li>Go to "Kerberos Upstream Proxy" tab.</li>
+	<li>Configure all settings.
+		<ul>
+			<li>Realm should be all uppercase and is probably your domain name.</li>
+			<li>KDC should be a domain controller.</li>
+			<li>Upstream Proxy Host should be the hostname of the proxy that requires Kerberos auth.</li>
+			<li>Upstream Proxy Port should be the port of the proxy that requires Kerberos auth.</li>
+			<li>Local Proxy Port should be an unused port on 127.0.0.1 that will receive incoming requests from Burp.</li>
+			<li>krb5.conf Path should be the full path where you'd like to save krb5.conf (auto-populated by the extension). Note: if using Windows use forward-slashes for separation.</li>
+			<li>Username should be your domain username (just the username, not the domain).</li>
+			<li>Password should be your domain password.</li>
+			<li>(Optional) Require Local Auth should be enabled if you wish to require authentication to use the proxy you're hosting locally.</li>
+			<li>(Optional) Local Auth Value should be set to a string of your choosing which will be used as the local authentication password, if enabled.</li>
+		</ul>
+	</li>
+	<li>(Optional) Click "Save Settings" button at bottom of the page to save for next time.</li>
+	<li>Click "Start Proxy" button at the bottom of the page.</li>
+	<li>n Burp Settings -&gt; Network -&gt; Connections, under "Upstream proxy servers", add a proxy server the following options:
+		<ul>
+			<li>Destination host: *</li>
+			<li>Proxy host: 127.0.0.1</li>
+			<li>Proxy port: Port number from "Local Proxy Port"</li>
+			<li>Authentication
+				<ul>
+					<li>If "Require Local Auth" is disabled: Type: None</li>
+					<li>If "Require Local Auth" is enabled: Type: Basic, Username: &lt;anything&gt;, Password: &lt;string from Local Auth Value&gt;</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>Done! Now you can use the Burp browser (or any browser pointing to the Burp Proxy listener) with your upstream proxy that requires Kerberos.</li>
+</ol>

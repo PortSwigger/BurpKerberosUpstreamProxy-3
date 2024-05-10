@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly('net.portswigger.burp.extensions:montoya-api:1.0.0+')
+    compileOnly('net.portswigger.burp.extensions:montoya-api:2023.1')
     implementation(libs.org.apache.httpcomponents.httpclient)
     implementation(libs.org.littleshoot.littleproxy)
     implementation(libs.io.netty.netty.all)
